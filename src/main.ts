@@ -7,12 +7,12 @@ import { AppModule } from './app.module';
 
 import fastify, { FastifyInstance, FastifyServerOptions } from 'fastify';
 
-interface NestApp {
+export interface NestApp {
   app: NestFastifyApplication;
   instance: FastifyInstance;
 }
 
-const bootstrapServer = async (): Promise<NestApp> => {
+export const bootstrapServer = async (): Promise<NestApp> => {
   const serverOptions: FastifyServerOptions = {
     logger: true,
   };

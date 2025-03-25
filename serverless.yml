@@ -1,0 +1,20 @@
+org: hospace
+app: mashup-node
+
+service: nest-graphql-mercurius-fastify
+
+plugins:
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: ap-northeast-2
+
+functions:
+  main:
+    handler: dist/lambda.handler
+    events:
+      - http:
+          path: graphql
+          method: POST
