@@ -9,18 +9,21 @@
 
   - [ ] Passport related Guard
 
-- [ ] Serverless
+- [x] Serverless
 - [ ] CI/CD
 - [ ] Error handling
-- [ ] Docker ?
+- [ ] Caching
+
 - [ ] Custom Decorator
 - [ ] Make the most of `Enhancer`
-- [ ] Graphql
-- [ ] CQRS ?
+- [ ] GraphQL
+- [ ] Resolve N+1 Problem in graphql and orm
+
+- [ ] Docker ?
 
 ## Serverless란?
 
-## Graphql + mercurius (driver) 사용
+## GraphQL + mercurius (driver) 사용
 
 ## Fastify + AWS lambda
 
