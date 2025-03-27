@@ -21,6 +21,39 @@
 
 - [ ] Docker ?
 
+## Before start
+### Install dependencies
+
+```shell
+$  yarn install
+```
+
+### Generate prisma
+
+```shell
+$ npx prisma generate
+```
+
+### Create `.env` file
+
+### (Optional) Create local database
+
+```shell
+$  docker-compose up -d
+```
+
+### (Optional) Migrate database
+
+```shell
+$  yarn migrate:dev
+```
+
+### Start server
+
+```shell
+$  yarn start:dev
+```
+
 ## Serverless란?
 
 ## GraphQL + mercurius (driver) 사용
