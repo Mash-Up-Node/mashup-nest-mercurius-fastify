@@ -20,7 +20,7 @@ export const bootstrapServer = async (): Promise<NestApp> => {
   const instance: FastifyInstance = fastify(serverOptions);
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
-    new FastifyAdapter(instance),
+    new FastifyAdapter({ logger: true }),
   );
 
   await app.init();
