@@ -6,7 +6,8 @@ export class PrismaService
   extends PrismaClient<Prisma.PrismaClientOptions, Prisma.LogLevel>
   implements OnModuleInit
 {
-  constructor(private readonly logger = new Logger('PrismaService')) {
+  private readonly logger = new Logger(PrismaService.name);
+  constructor() {
     super({
       log: [
         { emit: 'event', level: 'query' },
