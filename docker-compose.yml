@@ -1,0 +1,36 @@
+services:
+  app:
+    container_name: nest-graphql-mercurius-fastify
+    restart: unless-stopped
+    build: .
+    environment:
+      DB_URL: "postgresql://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}?schema=${DB_SCHEMA}"
+      PORT: ${PORT}
+    env_file:
+      - .env
+    ports:
+      - '${PORT}:${PORT}'
+    depends_on:
+      - postgres
+    volumes:
+      - .:/app
+
+  postgres:
+    image: postgres
+    container_name: postgres
+    healthcheck:
+      test: ['CMD', 'pg_isready', '-U', 'postgres']
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+      TZ: 'UTC'
+      PGTZ: 'UTC'
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+
+volumes:
+  node_modules:
