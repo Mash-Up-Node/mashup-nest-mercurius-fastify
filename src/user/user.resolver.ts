@@ -1,7 +1,6 @@
-import { Injectable } from '@nestjs/common';
-import { Query } from '@nestjs/graphql';
+import { Query, Resolver } from '@nestjs/graphql';
 
-@Injectable()
+@Resolver()
 export class UserResolver {
   @Query(() => String)
   hello() {
