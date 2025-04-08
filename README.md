@@ -3,25 +3,30 @@
 ## Todo
 
 - [ ] TestCode
-- [ ] Generator (Handlebar template)
-- [ ] Prisma
-- [ ] Auth
 
-  - [ ] Passport related Guard
+- [x] Prisma
 
 - [x] Serverless
 - [ ] CI/CD
-- [ ] Error handling
-- [ ] Caching
+
+- [ ] Make the most of `Enhancer`
+
+  - [ ] Error handling
+  - [ ] Response interceptor
+  - [ ] Guard that using passport
 
 - [ ] Custom Decorator
-- [ ] Make the most of `Enhancer`
-- [ ] GraphQL
-- [ ] Resolve N+1 Problem in graphql and orm
 
-- [ ] Docker ?
+  - [ ] Method decorator for any ideas
+  - [ ] Property decorator for any ideas
+
+- [ ] GraphQL
+
+  - [ ] Resolve N+1 Problem in graphql and orm
+  - [ ] RBAC
 
 ## Before start
+
 ### Install dependencies
 
 ```shell
