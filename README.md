@@ -7,13 +7,21 @@
 - [x] Prisma
 
 - [x] Serverless
-- [ ] CI/CD
+- [ ] CI/CD (HyeOn)
+
+  - CI (Husky)
+  - CD (Serverless)
 
 - [ ] Make the most of `Enhancer`
 
   - [ ] Error handling
-  - [ ] Response interceptor
-  - [ ] Guard that using passport
+
+    - Manage by code (Idea by Joo, implements by HyeOn)
+
+  - [ ] Guard that using passport (YoonHa)
+
+    - [ ] Local
+    - [ ] JWT
 
 - [ ] Custom Decorator
 
@@ -22,8 +30,8 @@
 
 - [ ] GraphQL
 
-  - [ ] Resolve N+1 Problem in graphql and orm
-  - [ ] RBAC
+  - [ ] Resolve N+1 Problem in Graphql and Orm (Together)
+  - [ ] RBAC (Joo)
 
 ## Before start
 
