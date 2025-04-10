@@ -9,7 +9,7 @@ import { UserModule } from './user/user.module';
     GraphQLModule.forRoot<MercuriusDriverConfig>({
       driver: MercuriusDriver,
       graphiql: true,
-      autoSchemaFile: '/tmp/schema.gql',
+      autoSchemaFile: '/tmp/graphql-schema.gql',
     }),
     UserModule,
   ],
