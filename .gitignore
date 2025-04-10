@@ -60,6 +60,6 @@ report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 .serverless/
 postgres-data/
 
-/tmp/graphql-schema.gql
+graphql-schema.gql
 
 @generated
