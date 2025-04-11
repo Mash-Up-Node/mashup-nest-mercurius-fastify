@@ -3,13 +3,23 @@ import { GraphQLModule } from '@nestjs/graphql';
 
 import { MercuriusDriver, MercuriusDriverConfig } from '@nestjs/mercurius';
 import { UserModule } from './user/user.module';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
-    GraphQLModule.forRoot<MercuriusDriverConfig>({
+    ConfigModule.forRoot(),
+    GraphQLModule.forRootAsync<MercuriusDriverConfig>({
       driver: MercuriusDriver,
-      graphiql: true,
-      autoSchemaFile: '/tmp/schema.gql',
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => {
+        const isDev = configService.get('NODE_ENV') !== 'production';
+        const SCHEMA_FILE_NAME = 'graphql-schema.gql';
+        return {
+          graphiql: true,
+          autoSchemaFile: (isDev ? `./src/` : '/tmp/') + SCHEMA_FILE_NAME,
+        };
+      },
     }),
     UserModule,
   ],

@@ -59,3 +59,7 @@ report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
 .serverless/
 postgres-data/
+
+graphql-schema.gql
+
+@generated
