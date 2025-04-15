@@ -1,9 +1,7 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { AuthGuard, PassportStrategy } from '@nestjs/passport';
-
 import { ExtractJwt, Strategy, VerifiedCallback } from 'passport-jwt';
-
 import { UserService } from '../../user/user.service';
 
 export class JwtAuthGuard extends AuthGuard('jwt') {}
@@ -17,18 +15,16 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,
-      secretOrKey: configService.get<string>('JWT_PUBLIC_KEY'),
+      secretOrKey: configService.get<string>('ACCESS_TOKEN_SECRET'),
     });
   }
 
   async validate(payload: { id: string }, done: VerifiedCallback) {
     try {
       const user = await this.userService.findOneById(payload.id);
-
       if (!user) {
         return done(null, false);
       }
-
       const { id, role } = user;
       done(null, { id, role });
     } catch (err) {
