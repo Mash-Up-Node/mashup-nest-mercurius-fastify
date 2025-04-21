@@ -1,0 +1,82 @@
+name: Deploy serverless application
+
+on:
+  push:
+    branches:
+      - main
+      - feat/cd
+
+jobs:
+  validate:
+    name: Validate and Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Generate Prisma client
+        run: npx prisma generate
+
+      - name: Lint code
+        run: yarn lint
+        
+      - name: Build project
+        run: yarn build
+        
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-artifact
+          path: |
+            dist/
+            node_modules/
+            package.json
+            yarn.lock
+            serverless.yml
+            prisma/
+          retention-days: 1
+        
+  deploy:
+    name: Deploy to AWS Lambda
+    needs: validate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: build-artifact
+          
+      - name: Install Serverless Framework
+        run: npm install -g serverless
+
+      - name: Configure serverless credentials
+        run: serverless config credentials --provider aws --key ${{ secrets.AWS_ACCESS_KEY_ID }} --secret ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      
+      - name: Run Prisma migrations
+        run: npx prisma migrate deploy
+        env:
+          DATABASE_URL: ${{ secrets.DB_URL }}
+
+      - name: Deploy serverless app
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          DB_URL: ${{ secrets.DB_URL }}
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_PORT: ${{ secrets.DB_PORT }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_NAME: ${{ secrets.DB_NAME }}
+          DB_SCHEMA: ${{ secrets.DB_SCHEMA }}
+          PORT: ${{ secrets.PORT }}
+          NODE_ENV: production
+        run: npx serverless deploy
