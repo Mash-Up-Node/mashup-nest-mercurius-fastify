@@ -79,4 +79,4 @@ jobs:
           DB_NAME: ${{ secrets.DB_NAME }}
           DB_SCHEMA: ${{ secrets.DB_SCHEMA }}
           PORT: ${{ secrets.PORT }}
-        run: npx serverless deploy
+        run: npx --no-install serverless deploy
