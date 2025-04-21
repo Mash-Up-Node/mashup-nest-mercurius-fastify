@@ -65,7 +65,7 @@ jobs:
       - name: Run Prisma migrations
         run: npx prisma migrate deploy --schema=./src/prisma/schema.prisma
         env:
-          DATABASE_URL: ${{ secrets.DB_URL }}
+          DB_URL: ${{ secrets.DB_URL }}
 
       - name: Deploy serverless app
         env:
