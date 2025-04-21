@@ -43,6 +43,7 @@ jobs:
             yarn.lock
             serverless.yml
             prisma/
+            src/
           retention-days: 1
         
   deploy:
