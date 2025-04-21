@@ -57,7 +57,7 @@ jobs:
           name: build-artifact
           
       - name: Install Serverless Framework
-        run: npm install -g serverless@3.38.0
+        run: npm install -g serverless@3.26.0
       
       - name: Install Prisma CLI
         run: npm install -g prisma
