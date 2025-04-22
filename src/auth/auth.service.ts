@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PrismaService } from '../prisma/prisma.service';
 import * as bcrypt from 'bcrypt';
@@ -55,7 +55,7 @@ export class AuthService {
     const { email, password } = input;
     const user = await this.authenticate({ email, password });
     if (!user) {
-      throw new BadRequestException('잘못된 로그인 정보입니다!');
+      throw new UnauthorizedException('잘못된 로그인 정보입니다!');
     }
     const accessToken = await this.issueToken(user, false);
     const refreshToken = await this.issueToken(user, true);
