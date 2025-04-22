@@ -1,5 +1,5 @@
-org: hospace
-app: mashup-node
+#org: hospace
+#app: mashup-node
 
 service: nest-graphql-mercurius-fastify
 
