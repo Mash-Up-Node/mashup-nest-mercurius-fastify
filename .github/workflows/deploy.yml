@@ -17,7 +17,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20.18.3'
+          node-version: '20'
           cache: 'yarn'
 
       - name: Install dependencies
@@ -57,7 +57,7 @@ jobs:
           name: build-artifact
           
       - name: Install Serverless Framework
-        run: npm install -g serverless@3.26.0
+        run: npm install -g serverless@3.38.0
       
       - name: Install Prisma CLI
         run: npm install -g prisma
@@ -79,4 +79,4 @@ jobs:
           DB_NAME: ${{ secrets.DB_NAME }}
           DB_SCHEMA: ${{ secrets.DB_SCHEMA }}
           PORT: ${{ secrets.PORT }}
-        run: npx --no-install serverless deploy
+        run: npx serverless deploy

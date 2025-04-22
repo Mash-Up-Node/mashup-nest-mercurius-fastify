@@ -4,7 +4,7 @@ app: mashup-node
 service: nest-graphql-mercurius-fastify
 
 plugins:
-  - serverless-offline
+ # - serverless-offline
  # - serverless-dotenv-plugin
 
 provider:
