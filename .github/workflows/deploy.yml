@@ -67,6 +67,9 @@ jobs:
         env:
           DB_URL: ${{ secrets.DB_URL }}
 
+      - name: Configure serverless credentials
+        run: serverless config credentials --provider aws --key ${{ secrets.AWS_ACCESS_KEY_ID }} --secret ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+     
       - name: Deploy serverless app
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
