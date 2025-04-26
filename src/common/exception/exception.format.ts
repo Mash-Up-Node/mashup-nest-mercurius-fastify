@@ -47,6 +47,7 @@ export const errorFormatter = (
     }
 
     if (errorStatus === HttpStatus.INTERNAL_SERVER_ERROR) {
+      statusCode = HttpStatus.INTERNAL_SERVER_ERROR;
       /**
        * @Todo
        * Do sentry like
