@@ -2,6 +2,13 @@ import { ExecutionResult, GraphQLFormattedError } from 'graphql';
 import { MercuriusContext } from 'mercurius';
 import { HttpException, HttpStatus } from '@nestjs/common';
 import { CustomFastifyError } from './custom-fastify-error';
+import { BaseException } from './exception.factory';
+
+function isBaseException(
+  error: unknown,
+): error is BaseException<number, string, string> {
+  return error instanceof BaseException;
+}
 
 export const errorFormatter = (
   execution: ExecutionResult & Required<Pick<ExecutionResult, 'errors'>>,
@@ -25,10 +32,11 @@ export const errorFormatter = (
       errorStatus = customFastifyError.statusCode;
     }
 
-    /**
-     * @Todo
-     * CustomException 만들어서, 나머지 500 처리
-     */
+    if (isBaseException(originalError)) {
+      errorStatus = originalError.statusCode;
+      errorCode = originalError.code;
+    }
+
     if (originalError instanceof HttpException) {
       errorStatus = originalError.getStatus();
 
