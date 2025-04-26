@@ -46,10 +46,12 @@ export const errorFormatter = (
       }
     }
 
-    /**
-     * @Todo
-     * 500 일 때 if 문으로 sentry 전송같은 거?
-     */
+    if (errorStatus === HttpStatus.INTERNAL_SERVER_ERROR) {
+      /**
+       * @Todo
+       * Do sentry like
+       */
+    }
 
     return {
       message: error.message,
