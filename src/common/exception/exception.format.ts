@@ -38,12 +38,11 @@ export const errorFormatter = (
     }
 
     if (originalError instanceof HttpException) {
-      errorStatus = originalError.getStatus();
-
+      const originalStatus = originalError.getStatus();
       if (
-        [HttpStatus.UNAUTHORIZED, HttpStatus.FORBIDDEN].includes(errorStatus)
+        [HttpStatus.UNAUTHORIZED, HttpStatus.FORBIDDEN].includes(originalStatus)
       ) {
-        statusCode = errorStatus;
+        statusCode = originalStatus;
       }
     }
 
