@@ -3,10 +3,16 @@ import { UserService } from './user.service';
 import { User } from 'src/@generated/user/user.model';
 import { UserCreateInput } from 'src/@generated/user/user-create.input';
 import { UserUpdateInput } from 'src/@generated/user/user-update.input';
+import { UserNotFoundException } from 'src/common/exception';
 
 @Resolver()
 export class UserResolver {
   constructor(private readonly userService: UserService) {}
+
+  @Query(() => [User])
+  throwUserNotFoundError() {
+    throw new UserNotFoundException({ name: '주병호' });
+  }
 
   @Query(() => [User])
   async findAllUserList() {
