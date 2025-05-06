@@ -6,6 +6,7 @@ import { UserModule } from './user/user.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { errorFormatter } from './common/exception/exception.format';
 import { graphQLContext } from './common/config/graphql.context';
+import { FieldAccessModule } from './common/field-access/field-access.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { graphQLContext } from './common/config/graphql.context';
       },
     }),
     UserModule,
+    FieldAccessModule,
   ],
   controllers: [],
   providers: [],
