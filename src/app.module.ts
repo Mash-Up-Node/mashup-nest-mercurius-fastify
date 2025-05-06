@@ -5,6 +5,7 @@ import { MercuriusDriver, MercuriusDriverConfig } from '@nestjs/mercurius';
 import { UserModule } from './user/user.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { errorFormatter } from './common/exception/exception.format';
+import { graphQLContext } from './common/config/graphql.context';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { errorFormatter } from './common/exception/exception.format';
           graphiql: true,
           autoSchemaFile: (isDev ? `./src/` : '/tmp/') + SCHEMA_FILE_NAME,
           errorFormatter,
+          context: graphQLContext,
         };
       },
     }),
