@@ -1,4 +1,4 @@
-import { User } from '@prisma/client';
+import { Role, User } from '@prisma/client';
 import { FastifyReply, FastifyRequest } from 'fastify';
 
 export interface GraphQLContext {
@@ -19,7 +19,7 @@ export const graphQLContext = (
      * Guard에서 주입받도록
      */
     user: {
-      role: 'USER',
+      role: Role.USER,
     } as User,
   };
 };
