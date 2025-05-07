@@ -34,7 +34,7 @@ export class FieldAccessInterceptor<T extends Record<string, unknown>>
 
     const { user } = gqlContext.getContext<GraphQLContext>();
 
-    const selectField = this.extractSelecFields<T>([...fieldNodes]);
+    const selectField = this.extractSelectFields<T>([...fieldNodes]);
 
     return next.handle().pipe(
       map((data: T | T[]) => {
@@ -85,7 +85,7 @@ export class FieldAccessInterceptor<T extends Record<string, unknown>>
     return requiredRole?.some((role) => role === userRole) ?? true;
   }
 
-  private extractSelecFields<T>(fieldNodes: FieldNode[]): (keyof T)[] {
+  private extractSelectFields<T>(fieldNodes: FieldNode[]): (keyof T)[] {
     return fieldNodes.reduce(
       (acc, { selectionSet }) => {
         if (!selectionSet) return acc;
