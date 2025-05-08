@@ -12,16 +12,16 @@
   - CI (Husky)
   - CD (Serverless)
 
-- [ ] Make the most of `Enhancer`
+- [x] Make the most of `Enhancer`
 
-  - [ ] Error handling
+  - [x] Error handling
 
     - Manage by code (Idea by Joo, implements by HyeOn)
 
-  - [ ] Guard that using passport (YoonHa)
+  - [x] Guard that using passport (YoonHa)
 
-    - [ ] Local
-    - [ ] JWT
+    - [x] Local
+    - [x] JWT
 
 - [ ] Custom Decorator
 
@@ -31,7 +31,7 @@
 - [ ] GraphQL
 
   - [ ] Resolve N+1 Problem in Graphql and Orm (Together)
-  - [ ] RBAC (Joo)
+  - [ ] Field-Access (Joo)
 
 ## Before start
 

@@ -4,6 +4,10 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { MercuriusDriver, MercuriusDriverConfig } from '@nestjs/mercurius';
 import { UserModule } from './user/user.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { AuthModule } from './auth/auth.module';
+import { errorFormatter } from './common/exception/exception.format';
+import { graphQLContext } from './common/config/graphql.context';
+import { FieldAccessModule } from './common/field-access/field-access.module';
 
 @Module({
   imports: [
@@ -18,10 +22,14 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
         return {
           graphiql: true,
           autoSchemaFile: (isDev ? `./src/` : '/tmp/') + SCHEMA_FILE_NAME,
+          errorFormatter,
+          context: graphQLContext,
         };
       },
     }),
     UserModule,
+    AuthModule,
+    FieldAccessModule,
   ],
   controllers: [],
   providers: [],

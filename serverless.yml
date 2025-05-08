@@ -4,8 +4,7 @@
 service: nest-graphql-mercurius-fastify
 
 plugins:
- # - serverless-offline
- # - serverless-dotenv-plugin
+  # - serverless-dotenv-plugin
 
 provider:
   name: aws
