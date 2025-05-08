@@ -1,5 +1,6 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { User } from '../../@generated/user/user.model';
+import { User } from '@prisma/client';
+import { UserObject } from 'src/user/dto/user.object';
 
 @ObjectType()
 export class JwtWithUser {
@@ -9,6 +10,6 @@ export class JwtWithUser {
   @Field(() => String)
   refreshToken?: string;
 
-  @Field(() => User)
+  @Field(() => UserObject)
   user: User;
 }
