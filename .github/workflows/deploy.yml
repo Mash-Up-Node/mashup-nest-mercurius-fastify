@@ -19,9 +19,6 @@ jobs:
           node-version: '20'
           cache: 'yarn'
 
-      - name: Install Serverless Framework
-        run: npm install -g serverless@3.38.0
-
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
@@ -40,7 +37,7 @@ jobs:
         run: yarn build
 
       - name: Configure serverless credentials
-        run: serverless config credentials --provider aws --key ${{ secrets.AWS_ACCESS_KEY_ID }} --secret ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: npx serverless config credentials --provider aws --key ${{ secrets.AWS_ACCESS_KEY_ID }} --secret ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
       - name: Deploy serverless app
-        run: serverless deploy 2>&1 | grep -v 'endpoint:'
+        run: npx serverless deploy 2>&1 | grep -v 'endpoint:'
