@@ -28,10 +28,10 @@ jobs:
 
       - name: Lint code
         run: yarn lint
-        
+
       - name: Build project
         run: yarn build
-        
+
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
@@ -45,7 +45,7 @@ jobs:
             prisma/
             src/
           retention-days: 1
-        
+
   deploy:
     name: Deploy to AWS Lambda
     needs: validate
@@ -55,10 +55,10 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: build-artifact
-          
+
       - name: Install Serverless Framework
         run: npm install -g serverless@3.38.0
-      
+
       - name: Install Prisma CLI
         run: npm install -g prisma
 
@@ -67,14 +67,14 @@ jobs:
         env:
           DB_URL: ${{ secrets.DB_URL }}
 
+      - name: Create .env file
+        run: |
+          echo "ACCESS_TOKEN_SECRET=${{ secrets.ACCESS_TOKEN_SECRET }}" >> .env
+          echo "REFRESH_TOKEN_SECRET=${{ secrets.REFRESH_TOKEN_SECRET }}" >> .env
+          echo "DB_URL=${{ secrets.DB_URL }}" >> .env
+
       - name: Configure serverless credentials
         run: serverless config credentials --provider aws --key ${{ secrets.AWS_ACCESS_KEY_ID }} --secret ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-     
+
       - name: Deploy serverless app
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET }}
-          REFRESH_TOKEN_SECRET: ${{ secrets.REFRESH_TOKEN_SECRET }}
-          DB_URL: ${{ secrets.DB_URL }}
         run: npx serverless deploy 2>&1 | grep -v 'endpoint:'
