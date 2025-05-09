@@ -1,6 +1,3 @@
-#org: hospace
-#app: mashup-node
-
 service: nest-graphql-mercurius-fastify
 
 plugins:
