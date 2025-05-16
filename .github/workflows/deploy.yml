@@ -1,0 +1,42 @@
+name: Deploy serverless application
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Run Prisma migrations
+        run: npx prisma migrate deploy 2>&1 | grep -v 'Datasource "db":' | grep -v 'PostgreSQL database'
+        env:
+          DB_URL: ${{ secrets.DB_URL }}
+
+      - name: Create .env file
+        run: |
+          echo "ACCESS_TOKEN_SECRET=${{ secrets.ACCESS_TOKEN_SECRET }}" >> .env
+          echo "REFRESH_TOKEN_SECRET=${{ secrets.REFRESH_TOKEN_SECRET }}" >> .env
+          echo "DB_URL=${{ secrets.DB_URL }}" >> .env
+
+      - name: Run build
+        run: yarn build
+
+      - name: Configure serverless credentials
+        run: npx serverless config credentials --provider aws --key ${{ secrets.AWS_ACCESS_KEY_ID }} --secret ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: Deploy serverless app
+        run: npx serverless deploy 2>&1 | grep -v 'endpoint:'

@@ -2,7 +2,7 @@ import awsLambdaFastify, {
   LambdaResponse,
   PromiseHandler,
 } from '@fastify/aws-lambda';
-import {
+import type {
   APIGatewayProxyEvent,
   APIGatewayProxyResult,
   Context,
