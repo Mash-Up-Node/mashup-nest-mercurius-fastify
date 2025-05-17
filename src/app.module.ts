@@ -8,6 +8,7 @@ import { AuthModule } from './auth/auth.module';
 import { errorFormatter } from './common/exception/exception.format';
 import { graphQLContext } from './common/config/graphql.context';
 import { FieldAccessModule } from './common/field-access/field-access.module';
+import { PrismaQueryModule } from './common/prisma-query/prisma-query.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { FieldAccessModule } from './common/field-access/field-access.module';
     UserModule,
     AuthModule,
     FieldAccessModule,
+    PrismaQueryModule,
   ],
   controllers: [],
   providers: [],

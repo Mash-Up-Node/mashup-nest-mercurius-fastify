@@ -1,27 +1,28 @@
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Context, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { UserService } from './user.service';
-import { UserNotFoundException } from 'src/common/exception';
 import { UserObject } from './dto/user.object';
 import { UserCreateInput } from './dto/user-create.input';
 import { UserUpdateInput } from './dto/user-update.input';
 
-@Resolver()
+@Resolver(() => UserObject)
 export class UserResolver {
   constructor(private readonly userService: UserService) {}
 
   @Query(() => [UserObject])
-  throwUserNotFoundError() {
-    throw new UserNotFoundException({ name: '주병호' });
+  async findAllUserList(@Context() context: any) {
+    // 컨텍스트에서 Prisma include 객체 가져오기
+    // APP_INTERCEPTOR로 등록된 PrismaIncludeInterceptor가 자동으로 처리
+    const prismaInclude = context.prismaInclude;
+    return this.userService.findAll(prismaInclude);
   }
 
-  @Query(() => [UserObject])
-  async findAllUserList() {
-    return this.userService.findAll();
-  }
-
-  @Query(() => UserObject)
-  async findUserById(@Args('id') id: string) {
-    return this.userService.findOneById(id);
+  @Query(() => UserObject, { nullable: true })
+  async findUserById(
+    @Args('id') id: string,
+    @Context() context: any,
+  ) {
+    const prismaInclude = context.prismaInclude;
+    return this.userService.findOneById(id, prismaInclude);
   }
 
   @Mutation(() => UserObject)
