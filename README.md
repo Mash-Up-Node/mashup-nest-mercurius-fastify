@@ -31,7 +31,7 @@
 - [ ] GraphQL
 
   - [ ] Resolve N+1 Problem in Graphql and Orm (Together)
-  - [ ] Field-Access (Joo)
+  - [x] Field-Access (Joo)
 
 ## Before start
 
