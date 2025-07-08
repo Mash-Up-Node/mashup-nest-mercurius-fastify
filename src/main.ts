@@ -32,7 +32,7 @@ export const bootstrapServer = async (): Promise<NestApp> => {
       if (!accept.includes(GRAPHQL_HEADER_KEY)) {
         return reply.status(406).send({
           data: null,
-          extension: null,
+          extensions: null,
           errors: [
             {
               message:
